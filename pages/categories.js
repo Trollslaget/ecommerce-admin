@@ -181,7 +181,7 @@ function Categories({swal}) {
           {categories.length > 0 && categories.map(category => (
             <tr key={category._id}>
               <td>{category.name}</td>
-              <td>{category?.parent?.name}</td>
+              <td>{category?.parent?.name ? category?.parent?.name : 'none'}</td>
               <td>
                 <button
                   onClick={() => editCategory(category)}
