@@ -122,16 +122,16 @@ export default function ProductForm({
 
 	return (
 		<form onSubmit={saveProduct}>
-			<label>Product name</label>
+			<label>Название товара</label>
 			<input
 				type='text'
-				placeholder='product name'
+				placeholder='Название товара'
 				value={title}
 				onChange={(ev) => setTitle(ev.target.value)}
 			/>
-			<label>Category</label>
+			<label>Категория</label>
 			<select value={category} onChange={(ev) => setCategory(ev.target.value)}>
-				<option value=''>Uncategorized</option>
+				<option value=''>Без категории</option>
 				{categories.length > 0 &&
 					categories.map((c) => (
 						<option key={c._id} value={c._id}>
@@ -157,7 +157,7 @@ export default function ProductForm({
 						</div>
 					</div>
 				))}
-			<label>Photos</label>
+			<label>Фото</label>
 
 			<div className='mb-2 flex flex-wrap gap-1'>
 				<ReactSortable
@@ -191,21 +191,21 @@ export default function ProductForm({
 				)}
 			</div>
 			<CroppComponent uploadImages={uploadImages} />
-			<label>Description</label>
+			<label>Описание</label>
 			<textarea
-				placeholder='description'
+				placeholder='описание'
 				value={description}
 				onChange={(ev) => setDescription(ev.target.value)}
 			/>
-			<label>Price (in USD)</label>
+			<label>Цена (USD)</label>
 			<input
 				type='number'
-				placeholder='price'
+				placeholder='цена'
 				value={price}
 				onChange={(ev) => setPrice(ev.target.value)}
 			/>
 			<button type='submit' className='btn-primary'>
-				Save
+				Сохранить
 			</button>
 		</form>
 	);

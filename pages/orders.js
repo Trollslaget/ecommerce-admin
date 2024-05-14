@@ -11,14 +11,14 @@ export default function OrdersPage() {
   }, []);
   return (
     <Layout>
-      <h1>Orders</h1>
+      <h1>Заказы</h1>
       <table className="basic">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Paid</th>
-            <th>Recipient</th>
-            <th>Products</th>
+            <th>Дата</th>
+            <th>Оплачен</th>
+            <th>Получатель</th>
+            <th>Товары</th>
           </tr>
         </thead>
         <tbody>
