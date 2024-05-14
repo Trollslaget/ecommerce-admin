@@ -5,18 +5,18 @@ import Logo from "@/components/Logo";
 
 export default function Layout({children}) {
   const [showNav,setShowNav] = useState(false);
-  const { data: session } = useSession();
-  if (!session) {
+  // const { data: session } = useSession();
+  // if (!session) {
     
 
-    return (
-      <div className="bg-bgGray w-screen h-screen flex items-center">
-        <div className="text-center w-full">
-          <button onClick={() => signIn('google')} className="bg-red-500 p-2 px-4 rounded-lg">Войти через Google</button>
-        </div>
-      </div>
-    );
-  }
+  //   return (
+  //     <div className="bg-bgGray w-screen h-screen flex items-center">
+  //       <div className="text-center w-full">
+  //         <button onClick={() => signIn('google')} className="bg-red-500 p-2 px-4 rounded-lg">Войти через Google</button>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="bg-bgGray min-h-screen ">
