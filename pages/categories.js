@@ -148,7 +148,7 @@ function Categories({ swal }) {
                   value={property.name}
 									placeholder='название параметра (например: цвет)'
 								/>
-								<input
+								{/* <input
 									type='text'
 									className='mb-0'
 									name='value'
@@ -157,7 +157,7 @@ function Categories({ swal }) {
 									}
 									value={property.values}
 									placeholder='Значения, через запятую'
-								/>
+								/> */}
 								<button
 									onClick={() => removeProperty(index)}
 									type='button'
@@ -203,7 +203,7 @@ function Categories({ swal }) {
 								<tr key={category._id}>
 									<td>{category.name}</td>
 									<td>
-										{category?.parent?.name ? category?.parent?.name : "none"}
+										{category?.parent?.name ? category?.parent?.name : "нет"}
 									</td>
 									<td>
 										<button

@@ -1,4 +1,4 @@
-import {Product} from "@/models/Product";
+import { News } from "@/models/News";
 import {mongooseConnect} from "@/lib/mongoose";
 import {isAdminRequest} from "@/pages/api/auth/[...nextauth]";
 
@@ -9,30 +9,30 @@ export default async function handle(req, res) {
   console.log(req.body, 'прилетело в апи');
   if (method === 'GET') {
     if (req.query?.id) {
-      res.json(await Product.findOne({_id:req.query.id}));
+      res.json(await News.findOne({_id:req.query.id}));
     } else {
-      res.json(await Product.find());
+      res.json(await News.find());
     }
   }
 
   if (method === 'POST') {
-    const {title,description,price,images,category,properties} = req.body;
-    const productDoc = await Product.create({
-      title,description,price,images,category,properties,
+    const {title,description,images} = req.body;
+    const newsDoc = await News.create({
+      title,description,images
     })
-    res.json(productDoc);
+    res.json(newsDoc);
   }
 
   if (method === 'PUT') {
-    const {title,description,price,images,category,properties,_id} = req.body;
+    const {title,description,images,_id} = req.body;
     console.log(title,description,images,_id, 'попало в пут');
-    await Product.updateOne({_id}, {title,description,price,images,category,properties});
+    await News.updateOne({_id}, {title,description,images});
     res.json(true);
   }
 
   if (method === 'DELETE') {
     if (req.query?.id) {
-      await Product.deleteOne({_id:req.query?.id});
+      await News.deleteOne({_id:req.query?.id});
       res.json(true);
     }
   }

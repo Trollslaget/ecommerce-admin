@@ -11,7 +11,8 @@ import {
 	uploadBytesResumable,
 } from "firebase/storage";
 import CroppComponent from "@/components/CroppComponent";
-export default function ProductForm({
+import { data } from "autoprefixer";
+export default function NewsForm({
 	_id,
 	title: existingTitle,
 	description: existingDescription,
@@ -27,38 +28,36 @@ export default function ProductForm({
 		assignedProperties || {}
 	);
 
-	const [price, setPrice] = useState(existingPrice || "");
+
 	const [images, setImages] = useState(existingImages || []);
-	const [goToProducts, setGoToProducts] = useState(false);
+	const [goToNews, setGoToNews] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
-	const [categories, setCategories] = useState([]);
+	
 	const router = useRouter();
-	useEffect(() => {
-		axios.get("/api/categories").then((result) => {
-			setCategories(result.data);
-		});
-	}, []);
-	async function saveProduct(ev) {
+
+	async function saveNews(ev) {
 		ev.preventDefault();
+		console.log(images);
 		const data = {
 			title,
 			description,
-			price,
+			
 			images,
-			category,
-			properties: productProperties,
+			
+		
 		};
+		console.log(data);
 		if (_id) {
 			//update
-			await axios.put("/api/products", { ...data, _id });
+			await axios.put("/api/news", { ...data, _id });
 		} else {
 			//create
-			await axios.post("/api/products", data);
+			await axios.post("/api/news", data);
 		}
-		setGoToProducts(true);
+		setGoToNews(true);
 	}
-	if (goToProducts) {
-		router.push("/products");
+	if (goToNews) {
+		router.push("/news");
 	}
 	async function uploadImages(ev) {
 		const fileName = Date.now() + "_" + Math.random().toString(36).substr(2, 9);
@@ -82,11 +81,16 @@ export default function ProductForm({
 			() => {
 				getDownloadURL(task.snapshot.ref)
 					.then((url) => {
+						console.log(url, "после запроса");
 						setImages((oldImages) => {
-							return [...oldImages, url];
+							if (oldImages) {
+								return [...oldImages, url];
+							}
+							return [url];
 						});
 					})
-					.then(setIsUploading(false));
+					.then(setIsUploading(false))
+					.then(console.log(images));
 			}
 		);
 	}
@@ -107,29 +111,29 @@ export default function ProductForm({
 			return updatedImages;
 		});
 	};
-	const propertiesToFill = [];
-	if (categories.length > 0 && category) {
-		let catInfo = categories.find(({ _id }) => _id === category);
-		propertiesToFill.push(...catInfo.properties);
-		while (catInfo?.parent?._id) {
-			const parentCat = categories.find(
-				({ _id }) => _id === catInfo?.parent?._id
-			);
-			propertiesToFill.push(...parentCat.properties);
-			catInfo = parentCat;
-		}
-	}
+	// const propertiesToFill = [];
+	// if (categories.length > 0 && category) {
+	// 	let catInfo = categories.find(({ _id }) => _id === category);
+	// 	propertiesToFill.push(...catInfo.properties);
+	// 	while (catInfo?.parent?._id) {
+	// 		const parentCat = categories.find(
+	// 			({ _id }) => _id === catInfo?.parent?._id
+	// 		);
+	// 		propertiesToFill.push(...parentCat.properties);
+	// 		catInfo = parentCat;
+	// 	}
+	// }
 
 	return (
-		<form onSubmit={saveProduct}>
-			<label>Название товара</label>
+		<form onSubmit={saveNews}>
+			<label>Заголовок</label>
 			<input
 				type='text'
-				placeholder='Название товара'
+				placeholder='Введите заголовок'
 				value={title}
 				onChange={(ev) => setTitle(ev.target.value)}
 			/>
-			<label>Категория</label>
+			{/* <label>Категория</label>
 			<select value={category} onChange={(ev) => setCategory(ev.target.value)}>
 				<option value=''>Без категории</option>
 				{categories.length > 0 &&
@@ -144,15 +148,19 @@ export default function ProductForm({
 					<div key={p.name} className=''>
 						<label>{p.name[0].toUpperCase() + p.name.substring(1)}</label>
 						<div>
-							<input
-								type='text'
+							<select
 								value={productProperties[p.name]}
 								onChange={(ev) => setProductProp(p.name, ev.target.value)}
-							/>
+							>
+								{p.values.map((v) => (
+									<option key={v} value={v}>
+										{v}
+									</option>
+								))}
+							</select>
 						</div>
 					</div>
-				))}
-
+				))} */}
 			<label>Фото</label>
 
 			<div className='mb-2 flex flex-wrap gap-1'>
@@ -190,13 +198,13 @@ export default function ProductForm({
 				value={description}
 				onChange={(ev) => setDescription(ev.target.value)}
 			/>
-			<label>Цена</label>
+			{/* <label>Цена (USD)</label>
 			<input
 				type='number'
 				placeholder='цена'
 				value={price}
 				onChange={(ev) => setPrice(ev.target.value)}
-			/>
+			/> */}
 			<button type='submit' className='btn-primary'>
 				Сохранить
 			</button>
