@@ -53,11 +53,11 @@ function Categories({ swal }) {
 	function deleteCategory(category) {
 		swal
 			.fire({
-				title: "Are you sure?",
-				text: `Do you want to delete ${category.name}?`,
+				title: "Вы уверены?",
+				text: `Хотите удалить ${category.name}?`,
 				showCancelButton: true,
-				cancelButtonText: "Cancel",
-				confirmButtonText: "Yes, Delete!",
+				cancelButtonText: "Отменить",
+				confirmButtonText: "Да!",
 				confirmButtonColor: "#d55",
 				reverseButtons: true,
 			})
@@ -148,16 +148,7 @@ function Categories({ swal }) {
                   value={property.name}
 									placeholder='название параметра (например: цвет)'
 								/>
-								{/* <input
-									type='text'
-									className='mb-0'
-									name='value'
-									onChange={(ev) =>
-										handlePropertyValuesChange(index, property, ev.target.value)
-									}
-									value={property.values}
-									placeholder='Значения, через запятую'
-								/> */}
+							
 								<button
 									onClick={() => removeProperty(index)}
 									type='button'

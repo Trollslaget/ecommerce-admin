@@ -16,7 +16,7 @@ export default function OrdersPage() {
         <thead>
           <tr>
             <th>Дата</th>
-            <th>Оплачен</th>
+            {/* <th>Оплачен</th> */}
             <th>Получатель</th>
             <th>Товары</th>
           </tr>
@@ -26,18 +26,18 @@ export default function OrdersPage() {
           <tr key={order._id}>
             <td>{(new Date(order.createdAt)).toLocaleString()}
             </td>
-            <td className={order.paid ? 'text-green-600' : 'text-red-600'}>
+            {/* <td className={order.paid ? 'text-green-600' : 'text-red-600'}>
               {order.paid ? 'YES' : 'NO'}
-            </td>
+            </td> */}
             <td>
-              {order.name} {order.email}<br />
-              {order.city} {order.postalCode} {order.country}<br />
-              {order.streetAddress}
+          <b> Имя:</b>   {order.name} <br/> <b>Email:</b> {order.email}<br />
+             <b> Город:</b> {order.city} <br/> <b>Почтовый индекс:</b> {order.postalCode} <br/> <b>Страна:</b> {order.country}<br />
+           <b> Адрес:</b>  {order.streetAddress}
             </td>
             <td>
               {order.line_items.map(l => (
                 <>
-                  {l.price_data?.product_data.name} x
+                  {l.price_data?.product_data.name} x 
                   {l.quantity}<br />
                 </>
               ))}
